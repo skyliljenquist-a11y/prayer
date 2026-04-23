@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>NBA Guessing Game</title>
+
+<style>
+body {
+    font-family: Arial;
+    text-align: center;
+    background: #0b0f2a;
+    color: white;
+}
+
+.card {
+    background: #1c2250;
+    padding: 20px;
+    margin: 20px auto;
+    width: 300px;
+    border-radius: 10px;
+}
+
+img {
+    width: 250px;
+    border-radius: 10px;
+}
+
+input {
+    padding: 10px;
+    width: 80%;
+    margin-top: 10px;
+}
+
+button {
+    padding: 10px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+#result {
+    margin-top: 10px;
+    font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+
+<h1>🏀 NBA Player Guessing Game</h1>
+
+<div class="card">
+    <img id="playerImg" src="" alt="NBA Player">
+    <br>
+
+    <input type="text" id="guess" placeholder="Enter player name">
+    <br>
+
+    <button onclick="checkGuess()">Submit Guess</button>
+    <button onclick="nextPlayer()">Next Player</button>
+
+    <div id="result"></div>
+    <div>Score: <span id="score">0</span></div>
+</div>
+
+<script>
+const players = [
+    {name: "LeBron James", img: "assets/img/Lebron-James.jpg"},
+    {name: "Stephen Curry", img: "assets/img/Steph.webp"},
+    {name: "Kevin Durant", img: "assets/img/snake.jpg"},
+    {name: "Giannis Antetokounmpo", img: "assets/img/greek freak.jpeg"},
+    {name: "Nikola Jokic", img: "assets/img/joker.webp"}
+];
+
+let currentPlayer = {};
+let score = 0;
+
+function loadPlayer() {
+    currentPlayer = players[Math.floor(Math.random() * players.length)];
+    document.getElementById("playerImg").src = currentPlayer.img;
+    document.getElementById("guess").value = "";
+    document.getElementById("result").innerText = "";
+}
+
+function checkGuess() {
+    let guess = document.getElementById("guess").value;
+
+    if (guess.toLowerCase() === currentPlayer.name.toLowerCase()) {
+        document.getElementById("result").innerText = "✅ Correct!";
+        score++;
+    } else {
+        document.getElementById("result").innerText = "❌ Wrong! It was " + currentPlayer.name;
+    }
+
+    document.getElementById("score").innerText = score;
+}
+
+function nextPlayer() {
+    loadPlayer();
+}
+
+loadPlayer();
+</script>
+
+</body>
+</html>
